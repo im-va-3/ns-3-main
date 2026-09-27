@@ -181,22 +181,6 @@ operator<<(std::ostream& os, const AttributeContainerObject& obj)
 /**
  * \ingroup attribute-tests
  *
- * This function handles mixed constness and compatible, yet
- * distinct numerical classes (like int and long)
- * \param x The left operand.
- * \param y The right operand.
- * \return true if the pairs have the same numerical values.
- */
-template <class A, class B, class C, class D>
-bool
-operator==(const std::pair<A, B>& x, const std::pair<C, D>& y)
-{
-    return x.first == y.first && x.second == y.second;
-}
-
-/**
- * \ingroup attribute-tests
- *
  * Test AttributeContainer instantiation, initialization, access
  */
 class AttributeContainerTestCase : public TestCase
@@ -261,7 +245,9 @@ AttributeContainerTestCase::DoRun()
         for (auto v : ref)
         {
             NS_TEST_ASSERT_MSG_NE(true, (aciter == ac.End()), "AC iterator reached end");
-            NS_TEST_ASSERT_MSG_EQ(v, (*aciter)->Get(), "Incorrect value");
+            const auto actual = (*aciter)->Get();
+            NS_TEST_ASSERT_MSG_EQ(v.first, actual.first, "Incorrect key");
+            NS_TEST_ASSERT_MSG_EQ(v.second, actual.second, "Incorrect value");
             ++aciter;
         }
         NS_TEST_ASSERT_MSG_EQ(true, (aciter == ac.End()), "AC iterator did not reach end");
@@ -508,7 +494,8 @@ AttributeContainerSetGetTestCase::DoRun()
         auto iter = map.begin();
         for (const auto& v : mapstrint)
         {
-            NS_TEST_ASSERT_MSG_EQ(v, *iter, "Incorrect value in mapstrint");
+            NS_TEST_ASSERT_MSG_EQ(v.first, iter->first, "Incorrect key in mapstrint");
+            NS_TEST_ASSERT_MSG_EQ(v.second, iter->second, "Incorrect value in mapstrint");
             ++iter;
         }
     }
