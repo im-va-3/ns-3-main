@@ -21,6 +21,8 @@
 
 #include "he-ppdu.h"
 
+#include <algorithm>
+
 #include "he-phy.h"
 
 #include "ns3/log.h"

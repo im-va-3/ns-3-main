@@ -19,12 +19,6 @@
 #ifndef DEVRED_H
 #define DEVRED_H
 
-#include <arpa/inet.h>
-#include <net/ethernet.h>
-#include <linux/ip.h>
-#include <linux/udp.h>
-#include <linux/in.h>
-
 #include "ns3/queue.h"
 #include "ns3/ipv4-header.h"
 #include "ns3/header.h"

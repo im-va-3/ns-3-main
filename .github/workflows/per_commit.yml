@@ -45,7 +45,15 @@ jobs:
           python3 -c "import re, subprocess;print('cache_misses=%d' % int(re.findall('cache_miss(.*)', subprocess.check_output(['ccache', '--print-stats']).decode())[0]))" >> $GITHUB_ENV
       - name: Run tests and examples
         if: env.cache_misses != '0'
-        run: python3 test.py --no-build
+        run: python3 test.py --no-build --text test-results
+      - name: Show failed test details
+        if: failure()
+        run: |
+          if [ -f test-results.txt ]; then
+            awk '/^(FAIL|CRASH|VALGR):/ { print; show = 1; next }
+                 /^(PASS|SKIP):/ { show = 0; next }
+                 show { print }' test-results.txt
+          fi
 
   CodeQL:
     runs-on: ubuntu-latest
