@@ -245,9 +245,7 @@ AttributeContainerTestCase::DoRun()
         for (auto v : ref)
         {
             NS_TEST_ASSERT_MSG_NE(true, (aciter == ac.End()), "AC iterator reached end");
-            const auto actual = (*aciter)->Get();
-            NS_TEST_ASSERT_MSG_EQ(v.first, actual.first, "Incorrect key");
-            NS_TEST_ASSERT_MSG_EQ(v.second, actual.second, "Incorrect value");
+            NS_TEST_ASSERT_MSG_EQ(v, (*aciter)->Get(), "Incorrect value");
             ++aciter;
         }
         NS_TEST_ASSERT_MSG_EQ(true, (aciter == ac.End()), "AC iterator did not reach end");
@@ -278,7 +276,9 @@ AttributeContainerTestCase::DoRun()
         for (const auto& v : ref)
         {
             NS_TEST_ASSERT_MSG_NE(true, (aciter == ac.End()), "AC iterator reached end");
-            NS_TEST_ASSERT_MSG_EQ(v, (*aciter)->Get(), "Incorrect value");
+            const auto actual = (*aciter)->Get();
+            NS_TEST_ASSERT_MSG_EQ(v.first, actual.first, "Incorrect key");
+            NS_TEST_ASSERT_MSG_EQ(v.second, actual.second, "Incorrect value");
             ++aciter;
         }
         NS_TEST_ASSERT_MSG_EQ(true, (aciter == ac.End()), "AC iterator did not reach end");
