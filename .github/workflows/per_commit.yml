@@ -210,7 +210,7 @@ jobs:
         continue-on-error: true
         run: |
           echo "[DEBUG-NS3-WIN-EXE] Run one example with captured stdout and stderr"
-          python3 test.py --no-build --example=examples/tutorial/hello-simulator --verbose
+          python3 test.py --no-build --example=hello-simulator --verbose
 
   Mac_OS_X:
     runs-on: macos-latest
