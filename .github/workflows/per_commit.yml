@@ -202,8 +202,15 @@ jobs:
           ccache -s
           python3 -c "import re, subprocess;print('cache_misses=%d' % int(re.findall('cache_miss(.*)', subprocess.check_output(['ccache', '--print-stats']).decode())[0]))" >> $GITHUB_ENV
       - name: Run tests and examples
+        id: windows_test
         if: env.cache_misses != '0'
         run: python3 test.py --no-build
+      - name: Diagnose failing Windows example launch
+        if: ${{ failure() && steps.windows_test.outcome == 'failure' }}
+        continue-on-error: true
+        run: |
+          echo "[DEBUG-NS3-WIN-EXE] Run one example with captured stdout and stderr"
+          python3 test.py --no-build --example=examples/tutorial/hello-simulator --verbose
 
   Mac_OS_X:
     runs-on: macos-latest
