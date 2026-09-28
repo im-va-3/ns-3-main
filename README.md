@@ -126,3 +126,21 @@ However, we recommend to follow the Gitlab guidelines for starters,
 that includes creating a Gitlab account, forking the ns-3-dev project
 under the new account's name, and then cloning the forked repository.
 You can find more information in the [manual](https://www.nsnam.org/docs/manual/html/working-with-git.html).
+
+
+## Step-by-step user guide
+
+1. **Configure the build.** From the ns-3 source root, run <code>./ns3 configure --enable-examples</code>. Add <code>--enable-tests</code> when you also want the test programs; consult <code>./ns3 configure --help</code> for optional modules and features.
+2. **Build and run a baseline.** Run <code>./ns3</code>, then <code>./ns3 run simple-global-routing</code>. The example writes trace/pcap output that you can inspect with tcpdump or Wireshark.
+3. **Read and modify a sample.** Open the example source under [examples](examples/), change one topology, traffic, routing, or link parameter, rebuild, and compare the outputs.
+4. **Create a simulation.** Construct nodes, install network devices and channels, configure Internet/application stacks, assign addresses, and schedule application start/stop times. Use helpers for standard models and attributes for their parameters.
+5. **Collect measurements.** Enable ASCII/pcap tracing or model-specific trace sources, run with a fixed seed/run number, and analyze throughput, delay, loss, queues, and protocol events.
+6. **Expand the model.** Browse the model library before adding code; then use a scratch program or a contributed module for new protocols, devices, applications, or propagation models.
+
+### Functionality map
+
+- Discrete-event simulation kernel, nodes, mobility, channels, network devices, protocol stacks, routing, applications, and configurable attributes.
+- Model libraries and examples for wired/wireless/network technologies; exact module coverage depends on the modules enabled in this checkout.
+- ASCII/pcap tracing, animation/visualization integrations, test programs, and configurable random streams for repeatable experiments.
+- Use [doc/build.txt](doc/build.txt), [examples](examples/), [model documentation](https://www.nsnam.org/documentation/models/), and [API reference](https://www.nsnam.org/doxygen/) for the complete model and helper APIs.
+
